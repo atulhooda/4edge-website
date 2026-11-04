@@ -97,9 +97,7 @@
   if (form) {
     const pre = new URLSearchParams(location.search).get("shade");
     if (pre && form.shade) form.shade.value = pre;
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      if (!form.reportValidity()) return;
+    const buildLines = () => {
       const f = new FormData(form);
       const finishes = f.getAll("finish").join(", ") || "Not specified";
       const lines = [
@@ -115,8 +113,21 @@
         f.get("sizes") ? `Size codes: ${f.get("sizes")}` : null,
         f.get("message") ? `Details: ${f.get("message")}` : null,
       ].filter((l) => l !== null);
-      const url = "https://wa.me/919309537501?text=" + encodeURIComponent(lines.join("\n"));
+      return lines;
+    };
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      const url = "https://wa.me/919309537501?text=" + encodeURIComponent(buildLines().join("\n"));
       window.open(url, "_blank", "noopener");
+    });
+    const emailBtn = form.querySelector("[data-send-email]");
+    if (emailBtn) emailBtn.addEventListener("click", () => {
+      if (!form.reportValidity()) return;
+      const name = form.elements.namedItem("name").value.trim();
+      location.href = "mailto:4edge.in@gmail.com?subject=" +
+        encodeURIComponent("Quote request" + (name ? " from " + name : "")) +
+        "&body=" + encodeURIComponent(buildLines().join("\n"));
     });
   }
 
