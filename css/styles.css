@@ -641,3 +641,5 @@ section { position: relative; }
   .use-roll { grid-column: 1 / -1; grid-row: auto; }
 }
 @media (max-width: 420px) { .uses-grid { grid-auto-rows: 170px; } .use figcaption { left: 14px; bottom: 12px; } }
+.uses-photo { margin: 0; border-radius: 6px; overflow: hidden; box-shadow: 0 30px 60px -35px rgba(28,21,17,.45); }
+.uses-photo img { width: 100%; height: auto; }
