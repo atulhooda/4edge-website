@@ -643,3 +643,10 @@ section { position: relative; }
 @media (max-width: 420px) { .uses-grid { grid-auto-rows: 170px; } .use figcaption { left: 14px; bottom: 12px; } }
 .uses-photo { margin: 0; border-radius: 6px; overflow: hidden; box-shadow: 0 30px 60px -35px rgba(28,21,17,.45); }
 .uses-photo img { width: 100%; height: auto; }
+
+/* ---------- Social ---------- */
+.social { display: flex; gap: 10px; margin-top: 22px; }
+.social a { width: 40px; height: 40px; border: 1px solid var(--line-dark); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--cream); transition: color .25s, border-color .25s, background .25s; }
+.social a:hover { color: var(--espresso); background: var(--gold-light); border-color: var(--gold-light); }
+.social svg { width: 18px; height: 18px; }
+.social-m { margin-top: 4px; }
