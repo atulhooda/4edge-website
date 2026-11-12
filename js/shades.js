@@ -1,8 +1,11 @@
 (function () {
   "use strict";
   const SERIES = window.SHADE_SERIES || [];
-  const style = (s) => `--b:${s[1]};--d:${s[2]};--l:${s[3]}`;
-  const texClass = (t) => "tx tx-" + t;
+  // shade = [code, name, base, dark, light, finish]
+  const style = (s) => `--b:${s[2]};--d:${s[3]};--l:${s[4]}`;
+  const texClass = (t, s) => "tx tx-" + (t === "wood" && s && s[5] === "gloss" ? "wood-gloss" : t);
+  const label = (s) => (s[1] ? s[1] + " " : "") + s[0];
+  const finishLabel = (f) => ({ matt: "Matt", gloss: "High gloss" }[f] || "");
 
   /* ---------- Home teaser: a strip of shades ---------- */
   const teaser = document.querySelector("[data-shade-teaser]");
@@ -13,7 +16,7 @@
       for (let i = 0; i < se.shades.length && picks.length < 24; i += step) picks.push([se, se.shades[i]]);
     });
     teaser.innerHTML = picks.slice(0, 24).map(([se, s]) =>
-      `<span class="${texClass(se.texture)}" style="${style(s)}" title="${se.name} ${s[0]}"></span>`).join("");
+      `<span class="${texClass(se.texture, s)}" style="${style(s)}" title="${label(s)}"></span>`).join("");
   }
 
   /* ---------- Shade library page ---------- */
@@ -38,15 +41,15 @@
       </div>
       <div class="shade-grid">
         ${se.shades.map((s) => `
-          <button class="shade" type="button" data-code="${s[0]}" data-series-id="${se.id}">
-            <div class="chip-swatch ${texClass(se.texture)}" style="${style(s)}"></div>
-            <div class="code"><b>${s[0]}</b><span>${se.name}</span></div>
+          <button class="shade" type="button" data-code="${s[0]}" data-q="${(s[0] + " " + s[1]).toLowerCase()}" data-series-id="${se.id}">
+            <div class="chip-swatch ${texClass(se.texture, s)}" style="${style(s)}"></div>
+            <div class="code"><b>${s[1] || se.name}</b><span>${s[0]}${s[5] ? " · " + finishLabel(s[5]) : ""}</span></div>
           </button>`).join("")}
       </div>
-    </section>`).join("") + `<p class="shade-empty" hidden>No shade matches that code.</p>`;
+    </section>`).join("") + `<p class="shade-empty" hidden>No shade matches that search.</p>`;
 
   function groupLabel(g) {
-    return { matt: "Matt finish", wooden: "Wooden texture", gloss: "High gloss", fabric: "Fabric design", special: "Speciality" }[g] || "";
+    return { solid: "Solid colour", wood: "Woodgrain texture", fabric: "Fabric design", marble: "Marble & stone" }[g] || "";
   }
 
   let active = "all";
@@ -57,7 +60,7 @@
       const inSeries = active === "all" || block.dataset.block === active;
       let n = 0;
       block.querySelectorAll(".shade").forEach((el) => {
-        const ok = inSeries && (!q || el.dataset.code.toLowerCase().includes(q));
+        const ok = inSeries && (!q || el.dataset.q.includes(q));
         el.hidden = !ok;
         if (ok) n++;
       });
@@ -92,14 +95,14 @@
     if (!btn) return;
     const se = SERIES.find((s) => s.id === btn.dataset.seriesId);
     const s = se.shades.find((x) => x[0] === btn.dataset.code);
-    dlg.querySelector(".big").className = "big " + texClass(se.texture);
+    dlg.querySelector(".big").className = "big " + texClass(se.texture, s);
     dlg.querySelector(".big").setAttribute("style", style(s));
-    dlg.querySelector("h3").textContent = "Shade " + s[0];
-    dlg.querySelector(".sub").textContent = se.name + " · " + groupLabel(se.group);
-    const q = encodeURIComponent(`${se.name} ${s[0]}`);
+    dlg.querySelector("h3").textContent = s[1] || se.name;
+    dlg.querySelector(".sub").textContent = ["Code " + s[0], groupLabel(se.group), finishLabel(s[5])].filter(Boolean).join(" · ");
+    const q = encodeURIComponent(label(s));
     dlg.querySelector("[data-enquire]").href = `contact.html?shade=${q}`;
     dlg.querySelector("[data-wa]").href = "https://wa.me/919309537501?text=" +
-      encodeURIComponent(`Hello 4Edge, I'm interested in shade ${s[0]} (${se.name}). Please share price and availability.`);
+      encodeURIComponent(`Hello 4Edge, I'm interested in shade ${label(s)} (${se.name}). Please share price and availability.`);
     dlg.showModal();
   });
   dlg.querySelector(".close").addEventListener("click", () => dlg.close());
