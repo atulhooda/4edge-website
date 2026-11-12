@@ -2,7 +2,7 @@
   "use strict";
   const SERIES = window.SHADE_SERIES || [];
   // shade = [code, name, base, dark, light, finish]
-  const img = (s) => `assets/shades/${s[0]}.webp`;
+  const img = (s) => `assets/shades/${s[0]}.webp?v=2`;
   const label = (s) => (s[1] ? s[1] + " " : "") + s[0];
   const finishLabel = (f) => ({ matt: "Matt", gloss: "High gloss" }[f] || "");
 
