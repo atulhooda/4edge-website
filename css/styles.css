@@ -564,6 +564,11 @@ section { position: relative; }
 .shade .code b { font-weight: 500; font-stretch: 112%; }
 .shade .code span { color: var(--muted); font-size: .78rem; white-space: nowrap; }
 .shade-empty { padding: 80px 0; text-align: center; color: var(--muted); }
+/* Real photo swatches cropped from the physical shade cards */
+.photo { background-color: var(--b); background-size: cover; background-position: center; }
+.chip-swatch.photo { aspect-ratio: 3 / 1; overflow: hidden; }
+.chip-swatch.photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.shade-dialog .big.photo { aspect-ratio: 3 / 1; }
 
 /* Texture renderers, driven by --b (base), --d (dark), --l (light) */
 .tx { position: relative; overflow: hidden; background-color: var(--b); }

@@ -2,8 +2,7 @@
   "use strict";
   const SERIES = window.SHADE_SERIES || [];
   // shade = [code, name, base, dark, light, finish]
-  const style = (s) => `--b:${s[2]};--d:${s[3]};--l:${s[4]}`;
-  const texClass = (t, s) => "tx tx-" + (t === "wood" && s && s[5] === "gloss" ? "wood-gloss" : t);
+  const img = (s) => `assets/shades/${s[0]}.webp`;
   const label = (s) => (s[1] ? s[1] + " " : "") + s[0];
   const finishLabel = (f) => ({ matt: "Matt", gloss: "High gloss" }[f] || "");
 
@@ -16,7 +15,7 @@
       for (let i = 0; i < se.shades.length && picks.length < 24; i += step) picks.push([se, se.shades[i]]);
     });
     teaser.innerHTML = picks.slice(0, 24).map(([se, s]) =>
-      `<span class="${texClass(se.texture, s)}" style="${style(s)}" title="${label(s)}"></span>`).join("");
+      `<span class="photo" style="--b:${s[2]};background-image:url(${img(s)})" title="${label(s)}"></span>`).join("");
   }
 
   /* ---------- Shade library page ---------- */
@@ -42,7 +41,7 @@
       <div class="shade-grid">
         ${se.shades.map((s) => `
           <button class="shade" type="button" data-code="${s[0]}" data-q="${(s[0] + " " + s[1]).toLowerCase()}" data-series-id="${se.id}">
-            <div class="chip-swatch ${texClass(se.texture, s)}" style="${style(s)}"></div>
+            <div class="chip-swatch photo" style="--b:${s[2]}"><img src="${img(s)}" alt="${label(s)}" loading="lazy" decoding="async" width="480" height="160"></div>
             <div class="code"><b>${s[1] || se.name}</b><span>${s[0]}${s[5] ? " · " + finishLabel(s[5]) : ""}</span></div>
           </button>`).join("")}
       </div>
@@ -95,8 +94,8 @@
     if (!btn) return;
     const se = SERIES.find((s) => s.id === btn.dataset.seriesId);
     const s = se.shades.find((x) => x[0] === btn.dataset.code);
-    dlg.querySelector(".big").className = "big " + texClass(se.texture, s);
-    dlg.querySelector(".big").setAttribute("style", style(s));
+    dlg.querySelector(".big").className = "big photo";
+    dlg.querySelector(".big").setAttribute("style", `--b:${s[2]};background-image:url(${img(s)})`);
     dlg.querySelector("h3").textContent = s[1] || se.name;
     dlg.querySelector(".sub").textContent = ["Code " + s[0], groupLabel(se.group), finishLabel(s[5])].filter(Boolean).join(" · ");
     const q = encodeURIComponent(label(s));
