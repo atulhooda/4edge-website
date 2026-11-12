@@ -407,7 +407,7 @@ section { position: relative; }
 .footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; font-size: .95rem; }
 .footer ul a { opacity: .85; } .footer ul a:hover { opacity: 1; color: var(--gold-light); }
 .footer .tagline { color: var(--muted-dark); margin-top: 18px; max-width: 32ch; font-size: .95rem; }
-.footer-word { font-size: clamp(4rem, 17vw, 15rem); font-stretch: 112%; letter-spacing: -0.06em; line-height: .8; font-weight: 600; color: transparent; -webkit-text-stroke: 1px rgba(244,239,232,.14); user-select: none; margin: 20px 0 30px; white-space: nowrap; }
+.footer-word { text-align: center; font-size: clamp(4rem, 17vw, 15rem); font-stretch: 112%; letter-spacing: -0.06em; line-height: .8; font-weight: 600; color: transparent; -webkit-text-stroke: 1px rgba(244,239,232,.14); user-select: none; margin: 20px 0 30px; white-space: nowrap; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--line-dark); font-size: .85rem; color: var(--muted-dark); }
 @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .footer-top { grid-template-columns: 1fr; } }
