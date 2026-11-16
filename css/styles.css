@@ -553,8 +553,9 @@ section { position: relative; }
 .series-head .count { color: var(--muted); font-size: .9rem; }
 .series-head .eyebrow { margin-bottom: 12px; }
 
-.shade-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 22px 16px; }
-@media (max-width: 520px) { .shade-grid { grid-template-columns: repeat(2, 1fr); gap: 16px 12px; } }
+.shade-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px 40px; }
+@media (max-width: 1000px) { .shade-grid { grid-template-columns: repeat(3, 1fr); gap: 26px 24px; } }
+@media (max-width: 680px) { .shade-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 14px; } }
 .shade { background: none; border: 0; padding: 0; text-align: left; color: var(--ink); display: flex; flex-direction: column; justify-content: flex-start; align-self: start; width: 100%; }
 .shade .chip-swatch { aspect-ratio: 16 / 7; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06); transition: transform .45s var(--ease), box-shadow .45s var(--ease); }
 .shade:hover .chip-swatch, .shade:focus-visible .chip-swatch { transform: translateY(-4px); box-shadow: inset 0 0 0 1px rgba(0,0,0,.08), 0 18px 30px -16px rgba(28,21,17,.45); }
@@ -566,9 +567,11 @@ section { position: relative; }
 .shade-empty { padding: 80px 0; text-align: center; color: var(--muted); }
 /* Real photo swatches cropped from the physical shade cards */
 .photo { background-color: var(--b); background-size: cover; background-position: center; }
-.chip-swatch.photo { aspect-ratio: 3 / 1; overflow: hidden; }
+.chip-swatch.photo { aspect-ratio: 1440 / 420; overflow: hidden; border-radius: 6px; box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 6px 16px -10px rgba(28,21,17,.35); }
+.chip-swatch.photo img { transition: transform .6s var(--ease); }
+.shade:hover .chip-swatch.photo img { transform: scale(1.06); }
 .chip-swatch.photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.shade-dialog .big.photo { aspect-ratio: 3 / 1; }
+.shade-dialog .big.photo { aspect-ratio: 1440 / 420; }
 
 /* Texture renderers, driven by --b (base), --d (dark), --l (light) */
 .tx { position: relative; overflow: hidden; background-color: var(--b); }
