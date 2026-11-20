@@ -118,7 +118,7 @@
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       if (!form.reportValidity()) return;
-      const url = "https://wa.me/919309537501?text=" + encodeURIComponent(buildLines().join("\n"));
+      const url = "https://wa.me/919011799979?text=" + encodeURIComponent(buildLines().join("\n"));
       window.open(url, "_blank", "noopener");
     });
     const emailBtn = form.querySelector("[data-send-email]");

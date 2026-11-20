@@ -100,7 +100,7 @@
     dlg.querySelector(".sub").textContent = ["Code " + s[0], groupLabel(se.group), finishLabel(s[5])].filter(Boolean).join(" · ");
     const q = encodeURIComponent(label(s));
     dlg.querySelector("[data-enquire]").href = `contact.html?shade=${q}`;
-    dlg.querySelector("[data-wa]").href = "https://wa.me/919309537501?text=" +
+    dlg.querySelector("[data-wa]").href = "https://wa.me/919011799979?text=" +
       encodeURIComponent(`Hello 4Edge, I'm interested in shade ${label(s)} (${se.name}). Please share price and availability.`);
     dlg.showModal();
   });
